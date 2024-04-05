@@ -1,0 +1,14 @@
+name: obot_completion_generator_dart_example
+description: A sample command-line application.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.3.3
+
+dependencies:
+  obot_completion_generator: ^0.0.2
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0
