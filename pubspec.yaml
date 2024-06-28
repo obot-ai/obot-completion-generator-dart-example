@@ -7,7 +7,7 @@ environment:
   sdk: ^3.3.3
 
 dependencies:
-  obot_completion_generator: ^1.0.3
+  obot_completion_generator: ^1.1.0
 
 dev_dependencies:
   lints: ^3.0.0

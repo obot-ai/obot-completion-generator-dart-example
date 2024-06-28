@@ -15,14 +15,39 @@ void main(List<String> args) async {
       host = args[i + 1];
     } else if (args[i] == "--key") {
       apiKey = args[i + 1];
-    } else if (args[i] == "--locale") {
-      locale = args[i + 1];
     }
   }
+  // * Matcherインスタンス
+  // Matcherを指定してgeneratorを作る場合は直接Matcherクラスで作るか、fromPropertiesで作るの二パターンがあります。
+  KeywordForwardMatcher matcher = KeywordForwardMatcher(
+    // 以下は設定例です、何も設定しなくてもデフォルト値で動作します
+    // scorer: (data, input, locale) {
+    //   // 適当な点数計算処理例
+    //   int score = data.text.length;
+    //   for (var keyword in data.matchedKeywords!) {
+    //     score += keyword.text.length;
+    //   }
+    //   return score;
+    // }
+    // maxResults: 15
+  );
 
-  Generator generator = Generator();
+  // プログラムの制御で動的にオプションを指定したい場合は、fromPropertiesを使う
+  // MatcherProperties props = MatcherProperties();
+  // if (args.contains("--max-results")) {
+  //   props.maxResults = int.parse(args[args.indexOf("--max-results") + 1]);
+  // }
+  // KeywordForwardMatcher matcher = KeywordForwardMatcher.fromProperties(props);
+
+  // * Generatorインスタンスを作成
+  // Matcherからgeneratorを作る
+  Generator generator = Generator.fromMatcher(matcher);
+
+  // Matcherからgeneratorを作らない場合は、デフォルトの前方一致Matcherが使われる。書き方は今まで通りでもOK
+  // Generator generator = Generator();
 
   print("Fetching [$locale] data from $host with API key $apiKey");
+  // * Fetcherインスタンスを作成
   Fetcher fetcher = Fetcher(
       apiKey: apiKey,
       getEndpoint: (String locale) {
